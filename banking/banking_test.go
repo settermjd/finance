@@ -6,47 +6,42 @@ import (
 )
 
 func TestLoanCalculation(t *testing.T) {
+    loanTerm := 30
 
-    loan := new(Loan)
+	Convey("Given a loan term of 30 years and a monthly repayment period", t, func() {
+        loan := NewLoan(loanTerm, "monthly")
 
-	Convey("Given a loan term of 30 years", t, func() {
-		loan.LoanTerm = 30
-
-		Convey("And a monthly repayment period", func() {
-			loan.RepaymentPeriod = "monthly"
-
-			Convey("There should be 360 payments in total", func() {
-			    So(loan.GetRepaymentPeriods(), ShouldEqual, 360)
-			})
-		})
+        Convey("There should be 360 payments in total", func() {
+            So(loan.GetRepaymentPeriods(), ShouldEqual, 360)
+        })
 	})
 
-	Convey("Given a monthly repayment period", t, func() {
-		loan.RepaymentPeriod = "monthly"
-
-		Convey("There should be 12 payments per year", func() {
-		    So(loan.GetTotalPaymentsPerYear(), ShouldEqual, 12)
-		})
-	})
-
-	Convey("Given a weekly repayment period", t, func() {
-		loan.RepaymentPeriod = "weekly"
+	Convey("Given a loan term of 30 years and a weekly repayment period", t, func() {
+        loan := NewLoan(loanTerm, "weekly")
 
 		Convey("There should be 52 payments per year", func() {
 		    So(loan.GetTotalPaymentsPerYear(), ShouldEqual, 52)
 		})
 	})
 
-	Convey("Given a quarterly repayment period", t, func() {
-		loan.RepaymentPeriod = "quarterly"
+	Convey("Given a loan term of 30 years and a fortnightly repayment period", t, func() {
+        loan := NewLoan(loanTerm, "fortnightly")
+
+		Convey("There should be 26 payments per year", func() {
+		    So(loan.GetTotalPaymentsPerYear(), ShouldEqual, 26)
+		})
+	})
+
+	Convey("Given a loan term of 30 years and a quarterly repayment period", t, func() {
+        loan := NewLoan(loanTerm, "quarterly")
 
 		Convey("There should be 4 payments per year", func() {
 		    So(loan.GetTotalPaymentsPerYear(), ShouldEqual, 4)
 		})
 	})
 
-	Convey("Given a yearly repayment period", t, func() {
-		loan.RepaymentPeriod = "yearly"
+	Convey("Given a loan term of 30 years and a yearly repayment period", t, func() {
+        loan := NewLoan(loanTerm, "yearly")
 
 		Convey("There should be 1 payment per year", func() {
 		    So(loan.GetTotalPaymentsPerYear(), ShouldEqual, 1)
