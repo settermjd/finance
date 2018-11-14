@@ -5,6 +5,7 @@ type Loan struct {
     LoanTerm int
     RepaymentPeriod string
     paymentPeriodToAmount map[string]int
+    InterestRate int
 }
 
 // NewLoan returns a new, initialised Loan struct
